@@ -5,7 +5,6 @@
 import pandas as pd
 import numpy as np
 import rasterio as ra
-import gdal as gd
 import zipfile
 from zipfile import ZipFile
 import re
@@ -1896,3 +1895,4 @@ with open("UP.xml", "w") as xml_file:
 print("Up GeoTIFF ready!")
 print("\n.\n.\n.")
 print("***End of the Processing!***")
+
