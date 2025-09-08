@@ -1,3 +1,7 @@
+#***EAST-WEST AND VERTICAL EXTRACTION***
+#Last edit: 08.09.2025
+#Use this script when data are inserted manually on your Jupyter Notebook
+
 import pandas as pd
 import numpy as np
 import rasterio as ra
@@ -22,9 +26,12 @@ from time import gmtime, strftime
 method = "lista dei lavori su cui è basato il codice"
 spatial_resolution = "30 m"
 # Path of where the data are stored
-folder = "F:\\POSTDOC\\epos\\data_input\\Umbertide_ric"
+folder = 
 
-
+print("***EAST_WEST AND VERTICAL EXTRACTION***\n. by Occhipinti M., De Luca C., Manunta M., Monterroso M., Casu F.\n. Released by: IREA-CNR")
+print("\n.\n.\n.")
+print("Start of the processing\n.\n.")
+print("Check of input data...")
 # Check process of existance of files and of their effective usage
 def checklist(file):
     element = file[0]
@@ -36,7 +43,9 @@ def checklist(file):
     if (check == True):
         print(NameError)
     else:
+        print("Input data existing")
         return file
+
 
 data_input = []
 orbit_data_inu = []
@@ -44,19 +53,20 @@ cos_input_data = []
 orbit_data_cos = []
 map_los_vec = []
 relative_orbit_number = []
+print("\n.\n.\n.")
 
-for x in os.listdir(folder):
+for x in os.listdir():
     if "InU" in x:
-        inu_data = os.listdir(folder + "\\" + x)
+        inu_data = os.listdir(x)
         for y in inu_data:
             if ".tif" in y:
-                y = folder + "\\" + x + "\\" + y
+                y = x + "/" + y
                 data_input.append(y)
                 product_format = "GEOTIFF"
 
         for y in inu_data:
             if ".metadata" in y:
-                metadata_path = (str(folder) + "\\" + str(x) + "\\" + y)    
+                metadata_path = (str(x) + "/" + y)    
                 metadata = open(metadata_path, "r")
                 for line in metadata:
 
@@ -73,7 +83,7 @@ for x in os.listdir(folder):
 
         for z in inu_data:
             if ".metadata" in z:
-                metadata_path = (str(folder) + "\\" + str(x) + "\\" + z)    
+                metadata_path = (str(x) + "/" + z)    
                 metadata = open(metadata_path, "r")  
                 if "ASCENDING" in metadata.read():
                     ascending = "ascending product"
@@ -84,17 +94,17 @@ for x in os.listdir(folder):
 
 
 
-for y in os.listdir(folder):
+for y in os.listdir():
     if "Cos" in y:
-        cos_data = os.listdir(folder + "\\" + y)
+        cos_data = os.listdir(y)
         for i in cos_data:
             if ".tif" in i:
-                i = folder + "\\" + y + "\\" + i
+                i = y + "/" + i
                 cos_input_data.append(i)
                         
         for w in cos_data:
             if ".metadata" in w:
-                metadata_path = (str(folder) + "\\" + str(y) + "\\" + w)    
+                metadata_path = (str(y) + "/" + w)    
                 metadata = open(metadata_path, "r")  
                 if "ASCENDING" in metadata.read():
                     ascending = "ascending product"
@@ -103,12 +113,12 @@ for y in os.listdir(folder):
                     descending = "descending product"
                     orbit_data_cos.append(descending)
 
-
 n = len(data_input)
 n_cos = len(cos_input_data)
 checklist(orbit_data_inu)
 checklist(orbit_data_cos)
-
+print("\n.\n.\n.")
+print("Organization of data...")
 if n == n_cos:
     True
     n = n_cos
@@ -124,7 +134,8 @@ min_lon_cos = np.zeros(n)
 min_lat_cos = np.zeros(n)
 max_lon_cos = np.zeros(n)
 max_lat_cos = np.zeros(n)
-
+print("\n.\n.\n.")
+print("Pre-processing of InU data: cutting of the Region Of Interest")
 # Processing for Deformation Data: cutting of the common area of deformation between the n files of input
 # 1) Opening of the data and extraction of shape informations
 for i in range(n):
@@ -159,6 +170,9 @@ east_matrix_cos = np.copy(matrix_cut_deformation)
 up_matrix_cos = np.copy(matrix_cut_deformation)
 mask_comm = np.copy(matrix_cut_deformation)
 
+print("InU Region Of Interest calculated correctly.")
+print("\n.\n.\n.")
+print("Overlapping the input data...")
 
 # 3) Cut of the layers of input data in a common area
 for i in range(n):
@@ -179,14 +193,15 @@ for i in range(n):
     y_start = int(np.round((min_lat[i] - aoi_min_lat)/spacing_lat))
     y_end = int(np.round((max_lat[i] - aoi_max_lat)/spacing_lat))
 
-    tif_file = gd.Open(data_input[i])
+    tif_file = gdal.Open(data_input[i])
     array_data = np.array(tif_file.ReadAsArray())
     new_matrix_deformation = array_data[0 - y_start:y_dimension - y_end, 0 - x_start:x_dimension - x_end]
 
     matrix_cut_deformation[i, :, :] = new_matrix_deformation # Common area of deformation
 
-
-
+print("Overlapping completed successfully.")
+print("\n.\n.\n.")
+print("Pre-processing of CosNEU data: cutting of the Region Of Interest")
 # Processing for Cos data: repetition of the previous steps
 for j in range(n):
     cos_file = ra.open(cos_input_data[j])
@@ -206,17 +221,18 @@ for j in range(n):
     y_start_cos = int(np.round((min_lat_cos[j] - aoi_min_lat)/spacing_lat_cos))
     y_end_cos = int(np.round((max_lat_cos[j] - aoi_max_lat)/spacing_lat_cos))
 
-    cos_file = gd.Open(cos_input_data[j])
+    cos_file = gdal.Open(cos_input_data[j])
     array_cos = np.array(cos_file.ReadAsArray())
-
+    print("Overlapping CosNEU data...")
     new_matrix_cos = array_cos[:, 0-y_start_cos:y_dimension_cos - y_end_cos, 0 - x_start_cos:x_dimension_cos - x_end_cos]
 
     
     north_matrix_cos[j, :, :] = new_matrix_cos[0, :, :]
     east_matrix_cos[j, :, :] = new_matrix_cos[1, :, :]
     up_matrix_cos[j, :, :] = new_matrix_cos[2, :, :]     # 3 Arrays (North, Up and East), but only 2 will be used (Up, East) because of the near-polar orbit of the satellite
-
-
+print("Overlapping of CosNEU data completed successfully.")
+print("\n.\n.\n.")
+print("Hooking InU and CosNEU...")
 # Construction of a common mask that contains the points in which there is effective deformation for all the deformation files  
 common_mask = np.empty((n, dim_range_lat, dim_range_lon))
 for i in range(n):
@@ -252,7 +268,8 @@ hookup = np.array(hookup)
 
 # Subtract the hookup vector to the matrix_cut_deformation to create a point of hookup
 hooked_matrix_cut_deformation = np.subtract(matrix_cut_deformation, hookup[:, np.newaxis, np.newaxis])
-
+print("InU and CosNEU have been hooked!")
+print("\n.\n.\n.")
 # # Case in which the hookup point is given as input from the user
 # latitude_hookup = 40.0001
 # longitude_hookup = 22.1810
@@ -284,7 +301,7 @@ matrixUp = np.zeros((dim_range_lat, dim_range_lon))
 matrixEast = np.zeros((dim_range_lat, dim_range_lon))
 vector_points = np.empty((1, 2))
 
-
+print("Retrieval of East-West and Up information...")
 for pixel in ind_good:
 
     matrixB = np.empty((n, 2))
@@ -315,6 +332,7 @@ for pixel in ind_good:
     matrixEast[pixel[0], pixel[1]] = components[0]
     matrixUp[pixel[0], pixel[1]] = components[1]
 
+print("East-West and Up information ready.")
 
 bounding_box = "%s %s %s %s" % (aoi_max_lat, aoi_max_lon, aoi_min_lat, aoi_min_lon)
 bounding_box_gml = "%s %s %s %s %s %s %s %s %s %s " % (aoi_min_lon, aoi_min_lat, aoi_max_lon, aoi_min_lat, aoi_max_lon, aoi_max_lat, aoi_min_lon, aoi_max_lat, aoi_min_lon, aoi_min_lat)
@@ -322,7 +340,8 @@ reference_point = str(hookup)
 product_size = dim_range_lat*dim_range_lon
 bounding_box_wkt = "POLYGON((%s %s, %s %s, %s %s, %s %s, %s %s))" 
 
-
+print("\n.\n.\n.")
+print("Writing of GeoTIFF for East-West data...")
 # Last step: save the file
 def getGeoTransform(extent, dimlat, dimlon):
     x = (extent[2] - extent[0]) / dimlon
@@ -349,7 +368,7 @@ grid_data.SetProjection(rs.ExportToWkt())
 grid_data.SetGeoTransform(getGeoTransform(extent, dim_range_lat, dim_range_lon))
 
 # 6) Set the name of the file and save the file
-file_name_matrixEast = "F:\\POSTDOC\\epos\\data_input\\Umbertide_ric\\EW_.tif"
+file_name_matrixEast = "EW_.tif"
 driver.CreateCopy(file_name_matrixEast, grid_data, 0)
 
 # 7) Close the file
@@ -374,12 +393,12 @@ code_value = "xxx"
 
 
 
-for x in os.listdir(folder):
+for x in os.listdir():
     if "InU" in x:
-        inu_data = os.listdir(folder + "\\" + x)
+        inu_data = os.listdir()
         for y in inu_data:
             if ".metadata" in y:
-                metadata_path = (str(folder) + "\\" + str(x) + "\\" + y)    
+                metadata_path = (str(x) + "/" + y)    
                 metadata = open(metadata_path, "r")
                 for line in metadata:
                     if "Sensor: " in line:
@@ -399,7 +418,7 @@ for x in os.listdir(folder):
                         reference_system = reference_system_line[25:]
                     if "Applied_algorithm_description: " in line:
                         applied_algorithm_description_line = line.strip()
-                        applied_algorithm_description = applied_algorithm_description_line[32:]
+                        applied_algorithm_description = applied_algorithm_description_line[31:]
                     if "Main_reference: " in line:
                         main_reference_line = line.strip()
                         main_reference = main_reference_line[17:]
@@ -411,7 +430,7 @@ for x in os.listdir(folder):
                         used_dem = used_dem_line[10:]
                     if "Applied_unwrapping_algorithm: " in line:
                         applied_unwrapping_algorithm_line = line.strip()
-                        applied_unwrapping_algorithm = applied_unwrapping_algorithm_line[31:]
+                        applied_unwrapping_algorithm = applied_unwrapping_algorithm_line[30:]
                     if "Mode: " in line:
                         mode_line = line.strip()
                         mode = mode_line[6:]
@@ -420,7 +439,7 @@ for x in os.listdir(folder):
                         antenna_side = antenna_side_line[14:]
                     if "Wavelength: " in line:
                         wavelength_line = line.strip()
-                        wavelength = wavelength_line[13:]
+                        wavelength = wavelength_line[11:]
                     if "Value_unit: " in line:
                         value_unit_line = line.strip()
                         value_unit = value_unit_line[12:]
@@ -471,7 +490,7 @@ method_string = "MethodDescription: " + method
 
 metadata = [ddss_id_string, product_id_string, product_format_string, product_size_string, preview_url_string, legend_url_string, product_url_string, bounding_box_string, bounding_box_wkt_string, license_string, user_id_string, software_version_string, applied_algorithm_description_string,  main_reference_string, date_of_production_string, service_used_for_generation_string, reference_system_string, used_dem_string, perpendicular_baseline_string, parallel_baseline_string, along_track_baseline_string, map_los_vec_string, applied_unwrapping_algorithm_string, reference_point_string, spatial_resolution_string, sensor_string, mode_string, antenna_side_string, relative_orbit_number_string, wavelength_string, value_unit_string, number_of_looks_azimuth_string, number_of_looks_range_string, applied_filter_string, kmz_url_string, method_string]
 
-metadata_file_path = "F:\\POSTDOC\\epos\\data_input\\Umbertide_ric\\EW.metadata"
+metadata_file_path = "EW.metadata"
 
 with open(metadata_file_path, "w") as metadata_file:
     for x in metadata:
@@ -1096,11 +1115,12 @@ swe_phen.appendChild(name)
 
 xml_str = root.toprettyxml(indent="\t")
 
-with open("C:\\Users\\Ospite\\data_code_napoli\\ew.xml", "w") as xml_file:
+with open("ew.xml", "w") as xml_file:
     root.writexml(xml_file, indent = "\n \t", addindent= "\t")
 
-
-
+print("East-West GeoTIFF ready!")
+print("\n.\n.\n.")
+print("Writing of Up GeoTIFF...")
 # Repeat for UP
 # 1) Extension of the file
 extent = [aoi_min_lon, aoi_min_lat, aoi_max_lon, aoi_max_lat]
@@ -1122,7 +1142,7 @@ grid_data.SetProjection(rs.ExportToWkt())
 grid_data.SetGeoTransform(getGeoTransform(extent, dim_range_lat, dim_range_lon))
 
 # 6) Set the name of the file and save the file
-file_name_matrixUp = "F:\\POSTDOC\\epos\\data_input\\Umbertide_ric\\UP_.tif"
+file_name_matrixUp = "UP_.tif"
 driver.CreateCopy(file_name_matrixUp, grid_data, 0)
 
 # 7) Close the file
@@ -1147,12 +1167,12 @@ code_value = "xxx"
 
 
 
-for x in os.listdir(folder):
+for x in os.listdir():
     if "InU" in x:
-        inu_data = os.listdir(folder + "\\" + x)
+        inu_data = os.listdir(x)
         for y in inu_data:
             if ".metadata" in y:
-                metadata_path = (str(folder) + "\\" + str(x) + "\\" + y)    
+                metadata_path = (str(x) + "/" + y)    
                 metadata = open(metadata_path, "r")
                 for line in metadata:
                     if "Sensor: " in line:
@@ -1172,7 +1192,7 @@ for x in os.listdir(folder):
                         reference_system = reference_system_line[25:]
                     if "Applied_algorithm_description: " in line:
                         applied_algorithm_description_line = line.strip()
-                        applied_algorithm_description = applied_algorithm_description_line[32:]
+                        applied_algorithm_description = applied_algorithm_description_line[31:]
                     if "Main_reference: " in line:
                         main_reference_line = line.strip()
                         main_reference = main_reference_line[17:]
@@ -1184,7 +1204,7 @@ for x in os.listdir(folder):
                         used_dem = used_dem_line[10:]
                     if "Applied_unwrapping_algorithm: " in line:
                         applied_unwrapping_algorithm_line = line.strip()
-                        applied_unwrapping_algorithm = applied_unwrapping_algorithm_line[31:]
+                        applied_unwrapping_algorithm = applied_unwrapping_algorithm_line[30:]
                     if "Mode: " in line:
                         mode_line = line.strip()
                         mode = mode_line[6:]
@@ -1193,7 +1213,7 @@ for x in os.listdir(folder):
                         antenna_side = antenna_side_line[14:]
                     if "Wavelength: " in line:
                         wavelength_line = line.strip()
-                        wavelength = wavelength_line[13:]
+                        wavelength = wavelength_line[11:]
                     if "Value_unit: " in line:
                         value_unit_line = line.strip()
                         value_unit = value_unit_line[12:]
@@ -1244,7 +1264,7 @@ method_string = "MethodDescription: " + method
 
 metadata = [ddss_id_string, product_id_string, product_format_string, product_size_string, preview_url_string, legend_url_string, product_url_string, bounding_box_string, bounding_box_wkt_string, license_string, user_id_string, software_version_string, applied_algorithm_description_string,  main_reference_string, date_of_production_string, service_used_for_generation_string, reference_system_string, used_dem_string, perpendicular_baseline_string, parallel_baseline_string, along_track_baseline_string, map_los_vec_string, applied_unwrapping_algorithm_string, reference_point_string, spatial_resolution_string, sensor_string, mode_string, antenna_side_string, relative_orbit_number_string, wavelength_string, value_unit_string, number_of_looks_azimuth_string, number_of_looks_range_string, applied_filter_string, kmz_url_string, method_string]
 
-metadata_file_path = "F:\\POSTDOC\\epos\\data_input\\Umbertide_ric\\UP.metadata"
+metadata_file_path = folder + "UP.metadata"
 
 with open(metadata_file_path, "w") as metadata_file:
     for x in metadata:
@@ -1869,7 +1889,10 @@ swe_phen.appendChild(name)
 
 xml_str = root.toprettyxml(indent="\t")
 
-with open("C:\\Users\\Ospite\\data_code_napoli\\UP.xml", "w") as xml_file:
+with open("UP.xml", "w") as xml_file:
     root.writexml(xml_file, indent = "\n \t", addindent= "\t")
 
 
+print("Up GeoTIFF ready!")
+print("\n.\n.\n.")
+print("***End of the Processing!***")
