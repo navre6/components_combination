@@ -1,10 +1,9 @@
-#***EAST-WEST AND VERTICAL EXTRACTION***
-#Last edit: 08.09.2025
-#Use this script when data are inserted manually on your Jupyter Notebook
+#USARE SU JUPYTER NOTEBOOK SOLO QUANDO I DATI VENGONO INSERITI DA FUORI
 
 import pandas as pd
 import numpy as np
 import rasterio as ra
+import gdal as gd
 import zipfile
 from zipfile import ZipFile
 import re
@@ -22,10 +21,11 @@ from xml.dom import minidom
 from xml.dom.minidom import parse, parseString
 from time import gmtime, strftime
 
-method = "lista dei lavori su cui è basato il codice"
+
+method = "Strang (1988); Lundgren et al. (2004); Manzo et al. (2006); De Luca et al. (2017)"
 spatial_resolution = "30 m"
 # Path of where the data are stored
-folder = 
+folder = ""
 
 print("***EAST_WEST AND VERTICAL EXTRACTION***\n. by Occhipinti M., De Luca C., Manunta M., Monterroso M., Casu F.\n. Released by: IREA-CNR")
 print("\n.\n.\n.")
@@ -269,6 +269,8 @@ hookup = np.array(hookup)
 hooked_matrix_cut_deformation = np.subtract(matrix_cut_deformation, hookup[:, np.newaxis, np.newaxis])
 print("InU and CosNEU have been hooked!")
 print("\n.\n.\n.")
+
+
 # # Case in which the hookup point is given as input from the user
 # latitude_hookup = 40.0001
 # longitude_hookup = 22.1810
@@ -296,6 +298,8 @@ print("\n.\n.\n.")
 #     hooked_matrix_cut_deformation = np.subtract(matrix_cut_deformation, hookup[:, np.newaxis, np.newaxis]) 
 
 # Extraction of the deformation for East and Up components
+
+
 matrixUp = np.zeros((dim_range_lat, dim_range_lon))
 matrixEast = np.zeros((dim_range_lat, dim_range_lon))
 vector_points = np.empty((1, 2))
@@ -1895,4 +1899,3 @@ with open("UP.xml", "w") as xml_file:
 print("Up GeoTIFF ready!")
 print("\n.\n.\n.")
 print("***End of the Processing!***")
-
