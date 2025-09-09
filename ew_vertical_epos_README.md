@@ -1,7 +1,8 @@
 This README.md will help you on handling the Python scripts "ew_vert" for the extraction of the East-West and Vertical components of the displacement field using EPOSAR database. These scripts must be downloaded, copied and pasted in the Jupyter Notebook environmnets of EPOS analysis section.
 As you can notice, two different Python scripts are present in the branch:
 1) "ew_vert_epos_complete.py"
-2) "ew_vert_epos_edit.py"
+2) "ew_vert_epos_kernel.ipynb"
+3) "ew_vert_epos_edit.py"
 
 **EW_VERT_EPOS_COMPLETE.PY**
 
@@ -33,6 +34,10 @@ _conda install -c conda-forge gdal_
 
 and restart the kernel. After that, the import stage should be finalized and you can copy-paste the entire script. In the variable folder, the "" is referred to the actual folder in which you are located. In you organize the data as reported in the images above, you must not change this variable. In contrary case, if you organize your data in another sub-folder (e.g., "eposar_test"), therefore the variable folder = "eposar_test".
 At this stage, the script should be ready for the use. A small recommendation regards the part of Metadata writing, which is work in progress since each metadata element is extrapolated from the input data. Some of the elements, in fact, are left empty for this reason, and they are planned to be defined as soon as possible. Some other elements, since are derived from the input data, are created using strings manipulation. If some error occurs during the writing of these elements, please just comment the metadata creation lines. In the script, they are located at lines 384 and 1159. We apologize for this inconvenient.
+
+**EW_VERT_EPOS_KERNEL.IPYNB**
+
+This file consists of the transposition of the file _ew_vert_epos_complete.py_ in a Jupyter Notebook kernel ready to use. The script is organized in cells of debugging depending on the function to be performed (e.g., data organization, unwrapped interferogram processing, CosNEU file processing...). 
 
 **EW_VERT_EPOS_EDIT.PY**
 
