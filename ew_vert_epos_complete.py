@@ -396,7 +396,7 @@ code_value = "xxx"
 
 for x in os.listdir():
     if "InU" in x:
-        inu_data = os.listdir()
+        inu_data = os.listdir(x)
         for y in inu_data:
             if ".metadata" in y:
                 metadata_path = (str(x) + "/" + y)    
@@ -1897,5 +1897,6 @@ with open("UP.xml", "w") as xml_file:
 print("Up GeoTIFF ready!")
 print("\n.\n.\n.")
 print("***End of the Processing!***")
+
 
 
