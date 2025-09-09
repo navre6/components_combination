@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import rasterio as ra
-import gdal as gd
 import zipfile
 from zipfile import ZipFile
 import re
@@ -19,10 +18,10 @@ from xml.dom import minidom
 from xml.dom.minidom import parse, parseString
 from time import gmtime, strftime
 
-method = "lista dei lavori su cui è basato il codice"
+method = "Strang (1988); Lundgren et al. (2004); Manzo et al. (2006); De Luca et al. (2017)"
 spatial_resolution = "30 m"
 # Path of where the data are stored
-folder = "F:\\POSTDOC\\epos\\data_input\\EQ_US_us10008ei0_61_km_NNW_of_Torbate_Jm_Iran_6.1"
+folder = ""
 
 print("***EAST_WEST AND VERTICAL EXTRACTION***\n. by Occhipinti M., De Luca C., Manunta M., Monterroso M., Casu F.\n. Released by: IREA-CNR")
 print("\n.\n.\n.")
@@ -1908,4 +1907,5 @@ with open("C:\\Users\\Ospite\\data_code_napoli\\UP.xml", "w") as xml_file:
 
 print("Up GeoTIFF ready!")
 print("\n.\n.\n.")
+
 print("***End of the Processing!***")
