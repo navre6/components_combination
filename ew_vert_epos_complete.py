@@ -4,7 +4,6 @@
 import pandas as pd
 import numpy as np
 import rasterio as ra
-import gdal as gd
 import zipfile
 from zipfile import ZipFile
 import re
@@ -27,7 +26,7 @@ method = "Strang (1988); Lundgren et al. (2004); Manzo et al. (2006); De Luca et
 spatial_resolution = "30 m"
 folder = ""
 
-print("***EAST_WEST AND VERTICAL EXTRACTION***\n. by Occhipinti M., De Luca C., Manunta M., Monterroso M., Casu F.\n. Released by: IREA-CNR")
+print("***EAST_WEST AND VERTICAL EXTRACTION***\n by Occhipinti M., De Luca C., Manunta M., Monterroso M., Casu F.\n Released by: IREA-CNR")
 print("\n.\n.\n.")
 print("Start of the processing\n.\n.")
 print("Check of input data...")
@@ -1898,4 +1897,5 @@ with open("UP.xml", "w") as xml_file:
 print("Up GeoTIFF ready!")
 print("\n.\n.\n.")
 print("***End of the Processing!***")
+
 
