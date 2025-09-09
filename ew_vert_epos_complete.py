@@ -457,7 +457,7 @@ preview_url_string = "Preview_url: " + preview_url
 legend_url_string = "Legend_url: " + legend_url 
 product_url_string = "Product_url: " + product_url 
 bounding_box_string = "Bounding_box: " + bounding_box
-bounding_box_wkt_string = "Bounding_box_wkt: POLYGON((" + bounding_box_wkt
+bounding_box_wkt_string = "Bounding_box_wkt: POLYGON((" + bounding_box_gml + "))"
 license_string = "License: " + license
 user_id_string = "User_ID: " + user_id
 software_version_string = "Software_version: " + software_version
@@ -1231,7 +1231,7 @@ preview_url_string = "Preview_url: " + preview_url
 legend_url_string = "Legend_url: " + legend_url 
 product_url_string = "Product_url: " + product_url 
 bounding_box_string = "Bounding_box: " + bounding_box
-bounding_box_wkt_string = "Bounding_box_wkt: POLYGON((" + bounding_box_wkt
+bounding_box_wkt_string = "Bounding_box_wkt: POLYGON((" + bounding_box_gml + "))"
 license_string = "License: " + license
 user_id_string = "User_ID: " + user_id
 software_version_string = "Software_version: " + software_version
@@ -1897,6 +1897,7 @@ with open("UP.xml", "w") as xml_file:
 print("Up GeoTIFF ready!")
 print("\n.\n.\n.")
 print("***End of the Processing!***")
+
 
 
 
