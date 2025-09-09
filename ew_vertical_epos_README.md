@@ -36,5 +36,5 @@ At this stage, the script should be ready for the use. A small recommendation re
 
 **EW_VERT_EPOS_EDIT.PY**
 
-This script is compatible with the import of the data from EPOS portal, without uploading them manually. 
-(_script actually work in progress for platform issues_)
+This script is compatible with the import of the data from EPOS portal, without uploading them manually. The data are stored in the folder "data/staginghistory/", and then you have to check manually in which folder the data is stores (e.g., stage.0001)
+(_script actually work in progress for permission issues in extracting zip files_)
