@@ -1,5 +1,6 @@
-#USARE SU JUPYTER NOTEBOOK SOLO QUANDO I DATI VENGONO INSERITI DA FUORI
+#SCRIPT TO USE WHEN DATA ARE UPLOADED MANUALLY FROM THE USER
 
+#Import libraries
 import pandas as pd
 import numpy as np
 import rasterio as ra
@@ -24,7 +25,6 @@ from time import gmtime, strftime
 
 method = "Strang (1988); Lundgren et al. (2004); Manzo et al. (2006); De Luca et al. (2017)"
 spatial_resolution = "30 m"
-# Path of where the data are stored
 folder = ""
 
 print("***EAST_WEST AND VERTICAL EXTRACTION***\n. by Occhipinti M., De Luca C., Manunta M., Monterroso M., Casu F.\n. Released by: IREA-CNR")
@@ -237,9 +237,7 @@ common_mask = np.empty((n, dim_range_lat, dim_range_lon))
 for i in range(n):
     mask_zeros = np.copy(matrix_cut_deformation[i])
     mask_zeros[mask_zeros != 0 ] = 1
-    common_mask[i, :, :] = mask_zeros #sommare lungo la terza dimensione (z). Se io sommo questo stack, ho una matrice 2D con punti in cui è 0, punti in cui è 1 per un ascending e un descending, punti in cui è 2, o 3 (o n in base a quanti input ho).
-                                    # solo i punti con almeno > 2 possono essere invertiti, ma in cui ho 2 devo capire se sono asc e disc, non possono essere uguali, mentre quelli con 3 posso invertirli.
-                                    # quindi fare il check se sono asc o disc, già lavorando qui posso trovare i pixel su cui fare il check. a questo punto poi 
+    common_mask[i, :, :] = mask_zeros
 
 mask_prod_zeros = np.prod(common_mask, axis = 0) # product of the arrays along the z dimensions inside common_mask -- the mask is a 2D array of 0 and 1
 
@@ -271,7 +269,7 @@ print("InU and CosNEU have been hooked!")
 print("\n.\n.\n.")
 
 
-# # Case in which the hookup point is given as input from the user
+# # CASE IN WHICH THE USER INSERTS MANUALLY A HOOKUP POINT IN LAT LON
 # latitude_hookup = 40.0001
 # longitude_hookup = 22.1810
 
@@ -383,7 +381,8 @@ import os
 os.remove("grid_data")
 
 
-#Metadata writer
+# Metadata writer
+print("Metadata creation -- WORK IN PROGRESS PART, IF ANY ERROR OCCURS, COMMENT FROM LINE 384 TO LINE 1121")
 ddss_id = "EW"
 product_id = "EW_XXX"
 preview_url = "xxx"
@@ -1156,8 +1155,8 @@ grid_data = None
 import os                
 os.remove("grid_data")
 
-# # Metadata writing 
-
+# Metadata writing 
+print("Metadata creation -- WORK IN PROGRESS PART, IF ANY ERROR OCCURS, COMMENT FROM LINE 1159 TO LINE 1898")
 ddss_id = "UP"
 product_id = "UP_XXX"
 preview_url = "xxx"
@@ -1899,3 +1898,4 @@ with open("UP.xml", "w") as xml_file:
 print("Up GeoTIFF ready!")
 print("\n.\n.\n.")
 print("***End of the Processing!***")
+
