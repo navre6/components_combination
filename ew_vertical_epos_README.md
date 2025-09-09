@@ -29,7 +29,7 @@ _pip install <library>_
 
 and restart the kernel once the process has been concluded. Usually, the import of the library osgeo is the most tricky. Use the command:
 
-_conda install -c conda-forge gdal>_
+_conda install -c conda-forge gdal_
 
 and restart the kernel. After that, the import stage should be finalized and you can copy-paste the entire script. In the variable folder, the "" is referred to the actual folder in which you are located. In you organize the data as reported in the images above, you must not change this variable. In contrary case, if you organize your data in another sub-folder (e.g., "eposar_test"), therefore the variable folder = "eposar_test"
 
