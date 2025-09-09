@@ -31,7 +31,8 @@ and restart the kernel once the process has been concluded. Usually, the import 
 
 _conda install -c conda-forge gdal_
 
-and restart the kernel. After that, the import stage should be finalized and you can copy-paste the entire script. In the variable folder, the "" is referred to the actual folder in which you are located. In you organize the data as reported in the images above, you must not change this variable. In contrary case, if you organize your data in another sub-folder (e.g., "eposar_test"), therefore the variable folder = "eposar_test"
+and restart the kernel. After that, the import stage should be finalized and you can copy-paste the entire script. In the variable folder, the "" is referred to the actual folder in which you are located. In you organize the data as reported in the images above, you must not change this variable. In contrary case, if you organize your data in another sub-folder (e.g., "eposar_test"), therefore the variable folder = "eposar_test".
+At this stage, the script should be ready for the use. A small recommendation regards the part of Metadata writing, which is work in progress since each metadata element is extrapolated from the input data. Some of the elements, in fact, are left empty for this reason, and they are planned to be defined as soon as possible. Some other elements, since are derived from the input data, are created using strings manipulation. If some error occurs during the writing of these elements, please just comment the metadata creation lines. In the script, they are located at lines 384 and 1159. We apologize for this inconvenient.
 
 **EW_VERT_EPOS_EDIT.PY**
 
