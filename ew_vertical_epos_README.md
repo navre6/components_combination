@@ -6,6 +6,7 @@ This README.md will help you on handling the Python scripts for the extraction o
 2) "ew_vert_epos_complete.py"
 3) "ew_vert_epos_kernel.ipynb"
 4) "ew_vert_epos_edit.py"
+5) "requirements.txt"
 
 1. **INPUT DATA ORGANIZATION**
 
@@ -63,3 +64,5 @@ This file consists of the transposition of the file _ew_vert_epos_complete.py_ i
 This script is compatible with the import of the data from EPOS portal, without uploading them manually. The data are stored in the folder "data/staginghistory/", and then you have to check manually in which folder the data is stores (e.g., stage.0001)
 (_script actually work in progress for permission issues in extracting zip files_)
 
+5. **REQUIREMENTS.TXT**
+List of the necessary modules for the running of the script.
