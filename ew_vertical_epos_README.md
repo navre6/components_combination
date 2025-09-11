@@ -2,12 +2,12 @@
 
 This README.md will help you on handling the Python scripts for the extraction of the East-West and Vertical components of the displacement field using EPOSAR database in EPOS analysis platform. The folder _components_combination_ contains different files: Python files (.py) with the "pure" Python scripts for the computation of EW and Vertical displacement; Jupyter Notebook files (.ipynb) containing the ready-to-use kernel for the performance of the Python script, organized in debugging cells. Each script is performable also outside EPOS Analysis portal by using any type of interpreter; the single condition to respect is the usage of EPOSAR products and their organization in the proper folders. This aspect will be further discussed at point 1.
 
-1) "Input_data"
+1) Input data organization
 2) "ew_vert_epos_complete.py"
 3) "ew_vert_epos_kernel.ipynb"
 4) "ew_vert_epos_edit.py"
 
-1. **INPUT_DATA**
+1. **INPUT DATA ORGANIZATION**
 
 The most simple example for input data consists of one ascending and one descending acquisition. Each acquisition will consists of: _unwrapped interferograms_ (InU files); _map of LOS vectors_ (CosNEU). The script will automatically recognize the mutual InU-CosNEU association for the correct performance of the processing, and for this reason, it is very important to respect the name of the folders when downloading them without changing any name (download available here: https://www.ics-c.epos-eu.org/). This means that each InU file folder MUST have the name of the respective InU file (e.g., InU_CNRIREA_123G folder will contain InU_CNRIREA_123G.tif, InU_CNRIREA_123G.xml, InU_CNRIREA_123G.metadata ...), as for the CosNEU folder (e.g., CosNEU_CNRIREA_123G folder will contain CosNEU_CNRIREA_123G.tif, CosNEU_CNRIREA_123G.metadata ...).
 
