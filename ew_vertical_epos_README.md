@@ -56,7 +56,7 @@ At this stage, the script should be ready for the use and the user can organize 
 
 3. **EW_VERT_EPOS_KERNEL.IPYNB**
 
-This file consists of the transposition of the file _ew_vert_epos_complete.py_ in a Jupyter Notebook kernel ready to use. The script is organized in cells of debugging depending on the function to be performed (e.g., data organization, unwrapped interferogram processing, CosNEU file processing...). Also in this case, beware to the issues that may occurr when importing the libraries. Please refer to the tips reported in 2. section.
+This file consists of the transposition of the file _ew_vert_epos_complete.py_ in a Jupyter Notebook kernel ready to use. it's advisable to use this file for the performance of the software due to the completeness of the information furnished. The script is organized in cells of debugging depending on the function to be performed (e.g., data organization, unwrapped interferogram processing, CosNEU file processing...). Also in this case, beware to the issues that may occurr when importing the libraries. Please refer to the tips reported in 2. section.
 
 4. **EW_VERT_EPOS_EDIT.PY**
 
