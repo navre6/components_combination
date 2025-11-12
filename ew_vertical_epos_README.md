@@ -1,4 +1,6 @@
 **EAST-WEST AND VERTICAL DISPLACEMENT FIELD EXTRAPOLATION USING EPOSAR PRODUCTS**
+**by Occhipinti M., De Luca C., Manunta M., Monterroso F., Casu F.**
+**d**
 
 This README.md will help you on handling the Python scripts for the extraction of the East-West and Vertical components of the displacement field using EPOSAR database in EPOS analysis platform. The folder _components_combination_ contains different files: Python files (.py) with the "pure" Python scripts for the computation of EW and Vertical displacement; Jupyter Notebook files (.ipynb) containing the ready-to-use kernel for the performance of the Python script, organized in debugging cells. Each script is performable also outside EPOS Analysis portal by using any type of interpreter; the single condition to respect is the usage of EPOSAR products and their organization in the proper folders. This aspect will be further discussed at point 1.
 
