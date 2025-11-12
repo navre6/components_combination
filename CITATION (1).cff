@@ -1,0 +1,48 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: EW-Vertical Displacement Retrieval
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Martina
+    family-names: Occhipinti
+    email: occhipinti.m@irea.cnr.it
+    affiliation: IREA-CNR
+    orcid: 'https://orcid.org/0000-0001-8068-6740'
+  - given-names: Claudio
+    family-names: De Luca
+    email: deluca.c@irea.cnr.it
+    affiliation: IREA-CNR
+  - given-names: Michele
+    family-names: Manunta
+    email: manunta.m@irea.cnr.it
+    affiliation: IREA-CNR
+  - given-names: Fernando
+    family-names: Monterroso
+    email: monterroso.m@irea.cnr.it
+    affiliation: IREA-CNR
+  - given-names: Francesco
+    family-names: Casu
+    email: casu.f@irea.cnr.it
+    affiliation: IREA-CNR
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.17093402
+repository-code: 'https://github.com/navre6/components_combination/tree/main'
+abstract: >-
+  Python script build for implementation in EPOS platform.
+  The script consists of the computation of the East-West
+  and Vertical displacement field from LOS displacement maps
+  (Unwrapped interferograms) from EPOS platform using the
+  information from the corresponding LOS vectors for a more
+  precise result and information on the displacement field.
+keywords:
+  - InSAR
+  - Python
+  - Ground Displacement
+version: 0.0.1
+date-released: '2025-09-11'
