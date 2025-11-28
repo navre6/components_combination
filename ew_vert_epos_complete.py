@@ -1,4 +1,12 @@
-#SCRIPT TO USE WHEN DATA ARE UPLOADED MANUALLY FROM THE USER
+#Import via requirements.txt
+import subprocess
+requirements = "" #insert here the path of requirements.txt
+file = open(requirements, "r")
+for line in file:
+    line = line.replace("==", "=")
+    modules = "conda install -c conda-forge " + line
+    
+    subprocess.run(modules)
 
 #Import libraries
 import pandas as pd
@@ -1897,6 +1905,7 @@ with open("UP.xml", "w") as xml_file:
 print("Up GeoTIFF ready!")
 print("\n.\n.\n.")
 print("***End of the Processing!***")
+
 
 
 
